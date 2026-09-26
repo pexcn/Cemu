@@ -2325,8 +2325,16 @@ extern "C" CemuEmbedResult CEMU_EMBED_CALL CemuEmbed_EnsureDefaultGamepadProfile
 					}
 				}
 			}
-			if (controller)
+			if (controller) {
+				// The UWP host owns the global four-player mapping.  Always
+				// discard mappings restored from controller0.xml and rebuild the
+				// canonical WGI map before a title starts.
+				emulated->clear_mappings();
+				if (!emulated->set_default_mapping(controller))
+					return CEMU_EMBED_INITIALIZATION_FAILED;
+				topologyChanged = true;
 				continue;
+			}
 
 			// Publish a complete replacement atomically through InputManager. Never
 			// mutate an active EmulatedController in place because its 1 ms update

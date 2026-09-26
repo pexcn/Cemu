@@ -802,6 +802,13 @@ ControllerProviderPtr InputManager::get_api_provider(InputAPI::Type api, const C
 
 void InputManager::apply_game_profile()
 {
+#if defined(CEMU_UWP)
+	// Xbox/UWP uses one host-owned global layout for P1-P4.  Loading a desktop
+	// per-game controller profile here can replace one of the pre-created
+	// multiplayer slots or override that shared mapping, so controller-profile
+	// overrides are deliberately disabled for this host.
+	return;
+#endif
 	const auto& profiles = g_current_game_profile->GetControllerProfile();
 	for (int i = 0; i < kMaxController; ++i)
 	{

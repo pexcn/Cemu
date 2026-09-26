@@ -64,7 +64,7 @@ bool WiimoteController::set_default_mapping(const std::shared_ptr<ControllerBase
 		// host-fed Xbox gamepad a usable Wiimote/Nunchuck default profile.
 		mapping =
 		{
-			{kButtonId_A, kButton0}, {kButtonId_B, kButton1},
+			{kButtonId_A, kButton1}, {kButtonId_B, kButton0},
 			{kButtonId_1, kButton2}, {kButtonId_2, kButton3},
 			{kButtonId_Home, kButton8},
 			{kButtonId_Plus, kButton6}, {kButtonId_Minus, kButton4},
